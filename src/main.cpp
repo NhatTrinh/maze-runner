@@ -9,6 +9,17 @@ using namespace std;
 const int ROW = 9;
 const int COL = 11;
 /*
+void checkWall(bool & isWall)
+{
+	// check the wall, check the current position
+	
+	bool isWall = true;
+	sf::vector2f pos = PacmanSprite.getPosition();
+	if (pos.x % 64 == 0 || pos.y % 64 == 0)
+		isWall = true;
+}
+*/
+/*
 void reset(sf::Sprite& cookieSprite)
 {
 cookieSprite.setPosition(rand() % 750, rand() % 550);
@@ -39,20 +50,24 @@ void handleEvent(sf::RenderWindow& window, sf::Event &event)
 //Pacman
 void update(sf::Sprite& PacmanSprite, sf::Event event)
 {
-	if (event.key.code == sf::Keyboard::Left) //keeps it moving even though key is not pressed
+	bool ifContinue = true;
+	sf::Vector2f pos = PacmanSprite.getPosition();
+	if (event.key.code == sf::Keyboard::Left && ifContinue == true) //keeps it moving even though key is not pressed
 	{
-		PacmanSprite.move(-1, 0);
+		PacmanSprite.setRotation(180);
 	}
 	else if ((event.key.code == sf::Keyboard::Right))
 	{
-		PacmanSprite.move(1, 0);
+		PacmanSprite.setRotation(0);
 	}
 	else if ((event.key.code == sf::Keyboard::Up))
 	{
+		PacmanSprite.setRotation(270);
 		PacmanSprite.move(0, -1);
 	}
 	else if ((event.key.code == sf::Keyboard::Down))
 	{
+		PacmanSprite.setRotation(90);
 		PacmanSprite.move(0, 1);
 	}
 
@@ -91,7 +106,7 @@ void drawWall(sf::RenderWindow& window, bool arr[][COL], sf::Sprite *tileArr, sf
 int main()
 {
 	srand(time(NULL));
-	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML Works!");
+	sf::RenderWindow window(sf::VideoMode(704, 576), "SFML Works!");
 	window.setVerticalSyncEnabled(true);
 
 	sf::Texture wallTexture;
